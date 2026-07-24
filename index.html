@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Accessible Scroll — Pebble Platform</title>
+<meta name="description" content="A 3D-printable accessibility top case for the Logitech Pebble M350s mouse — seven features, magnetic attachment, no tools needed.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ NAV -->
+<nav class="topnav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="nav-logo-dot"></span>
+      <span>Accessible Scroll</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#testing">Assessment</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#cad-viewer">CAD Model</a></li>
+      <li><a href="#downloads">Downloads</a></li>
+      <li><a href="#questionnaire">Feedback</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ SECTION 1 — HERO -->
+<section id="hero" class="hero-section">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="section-tag">Logitech Research Project 4</span>
+      <h1 class="hero-title">Accessible<br><span class="accent">Scroll</span></h1>
+      <p class="hero-sub">A 3D-printable top case for the Pebble M350s that makes scrolling accessible for users with tremor, low dexterity, or pain — no mouse modification required.</p>
+      <div class="hero-chips">
+        <span class="chip">Pebble M350s</span>
+        <span class="chip">PETG · 0.2mm layers</span>
+        <span class="chip">3 N52 magnets</span>
+        <span class="chip">OpenSCAD · FDM</span>
+      </div>
+      <div class="hero-ctas">
+        <a href="#testing" class="btn-primary">Take assessment</a>
+        <a href="#downloads" class="btn-outline">Download STL files</a>
+      </div>
+    </div>
+    <div class="hero-canvas-wrap">
+      <canvas id="heroCanvas"></canvas>
+      <div class="canvas-label">3D model — drag to rotate</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ SECTION 2 — TESTING -->
+<section id="testing" class="testing-section">
+  <div class="content-wrap">
+    <span class="section-tag">Scroll Assessment</span>
+    <h2 class="section-title">Test your scroll ability</h2>
+    <p class="section-sub">An adaptive scroll challenge that generates a personal profile — accuracy, precision, and correction tendency. Use your actual mouse scroll wheel.</p>
+    <div class="testing-frame-wrap">
+      <iframe src="testing.html" title="Accessible Scroll Assessment" allowtransparency="true"></iframe>
+    </div>
+    <p class="testing-note">The activity takes under 2 minutes. Results are shown on screen only — no data is automatically stored.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ SECTION 3 — 7 FEATURES -->
+<section id="features" class="features-section">
+  <div class="content-wrap">
+    <span class="section-tag">Design Features</span>
+    <h2 class="section-title">Seven features. Two printable parts.</h2>
+    <p class="section-sub">An FDM-printable top-case shell that replaces the original Pebble M350s flat top, plus a clip-on wheel cap. Magnetically attaches — no tools needed.</p>
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div class="feat-num">01</div>
+        <div class="feat-icon">⌒</div>
+        <h3>Ergonomic Palm Dome</h3>
+        <p>A gentle raised curve across the palm area reduces wrist extension and fatigue during long sessions, without making the case bulky.</p>
+        <div class="feat-tag">Comfort · Posture</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-num">02</div>
+        <div class="feat-icon">◎</div>
+        <h3>Wheel Extender Cap</h3>
+        <p>A separate clip-on cap presses onto the mouse's real scroll wheel and enlarges it (~11mm → 16mm). It spins <em>with</em> the wheel, so it can be turned by thumb, knuckle, or palm — not just a fingertip. Reversible, no glue.</p>
+        <div class="feat-tag">Accessibility · Separate part</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-num">03</div>
+        <div class="feat-icon">⊔</div>
+        <h3>Wrist Support Ledge</h3>
+        <p>13mm rear ledge catches the wrist and prevents the mouse from sliding. Reduces the need for repeated repositioning.</p>
+        <div class="feat-tag">Stability · Tremor control</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-num">04</div>
+        <div class="feat-icon">≡</div>
+        <h3>Side Grip Ribs</h3>
+        <p>5 ribs per side press-grip the thumb and ring finger. Increases lateral force without needing a tight squeeze — helps with low grip strength.</p>
+        <div class="feat-tag">Grip · Low-dexterity</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-num">05</div>
+        <div class="feat-icon">⠿</div>
+        <h3>Tactile Button Dots</h3>
+        <p>Four raised dots on the left-button zone allow users to locate the click surface by touch — no need to look down at the mouse.</p>
+        <div class="feat-tag">Tactile · Visual impairment</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-num">06</div>
+        <div class="feat-icon">▭</div>
+        <h3>+5mm Button Extension</h3>
+        <p>A forward lip extends the button surface 5mm toward the user — shorter finger reach for clicking, useful for users with reduced finger extension.</p>
+        <div class="feat-tag">Reach · Dexterity</div>
+      </div>
+
+      <div class="feature-card feat-card-wide">
+        <div class="feat-num">07</div>
+        <div class="feat-icon">⬡</div>
+        <h3>3-Magnet Pockets</h3>
+        <p>Triangle layout — front-left, front-right, rear-centre — matches the Pebble M350s base. N52 disc magnets press-fit in. No glue, no screws, no tools.</p>
+        <div class="feat-tag">Magnetic attachment · MAS-1 standard</div>
+      </div>
+
+    </div>
+
+    <div class="features-summary">
+      <div class="sum-stat"><span class="sum-num">7</span><span>Features</span></div>
+      <div class="sum-stat"><span class="sum-num">2</span><span>Printable parts</span></div>
+      <div class="sum-stat"><span class="sum-num">3</span><span>N52 magnets</span></div>
+      <div class="sum-stat"><span class="sum-num">0</span><span>Tools needed</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ SECTION 4 — CAD MULTI-VIEW -->
+<section id="cad-viewer" class="cad-section">
+  <div class="content-wrap">
+    <span class="section-tag">CAD Model</span>
+    <h2 class="section-title">Explore the design</h2>
+    <p class="section-sub">Interactive 3D viewer. Select a view angle below, or drag to orbit. Scroll wheel zooms.</p>
+
+    <div class="cad-outer">
+      <div class="cad-controls-top">
+        <button class="view-btn active" data-view="iso">Isometric</button>
+        <button class="view-btn" data-view="front">Front</button>
+        <button class="view-btn" data-view="back">Back</button>
+        <button class="view-btn" data-view="side">Side</button>
+        <button class="view-btn" data-view="top">Top</button>
+        <button class="view-btn" data-view="bottom">Bottom</button>
+      </div>
+
+      <div class="cad-viewport">
+        <canvas id="cadCanvas"></canvas>
+        <div class="cad-hint">Drag to rotate &nbsp;·&nbsp; Scroll to zoom</div>
+      </div>
+
+      <div class="cad-controls-bottom">
+        <button class="zoom-btn" id="zoomIn">＋</button>
+        <button class="zoom-btn" id="resetView">⊙</button>
+        <button class="zoom-btn" id="zoomOut">－</button>
+        <span class="zoom-label">Zoom</span>
+      </div>
+    </div>
+
+    <div class="cad-legend">
+      <div class="legend-item"><span class="leg-dot" style="background:#0070BA"></span>Top-case shell &amp; features</div>
+      <div class="legend-item"><span class="leg-dot" style="background:#003A6E"></span>Flexible click buttons</div>
+      <div class="legend-item"><span class="leg-dot" style="background:#e8e8e8;border:1px solid #555"></span>Tactile dots</div>
+      <div class="legend-item"><span class="leg-dot" style="background:#f59e0b"></span>3 magnet pockets (underside)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ SECTION 5 — DOWNLOADS -->
+<section id="downloads" class="downloads-section">
+  <div class="content-wrap">
+    <span class="section-tag">Download Files</span>
+    <h2 class="section-title">Files for printing &amp; reference</h2>
+    <p class="section-sub">Two ready-to-print STL parts — download and print directly, no CAD software needed — plus the official Logitech open-access files for the Pebble M350s base.</p>
+
+    <div class="dl-grid">
+
+      <div class="dl-card dl-primary">
+        <div class="dl-header">
+          <span class="dl-badge">Custom Design</span>
+          <span class="dl-format">STL</span>
+        </div>
+        <h3>Accessible Scroll Top Case</h3>
+        <p>The full top-case shell — all features, flexible click buttons, 3 magnet pockets, correct M350s geometry. Downloads ready to print.</p>
+        <ul class="dl-specs">
+          <li>107 × 59 × 15mm — thin low-profile shell</li>
+          <li>PETG · 0.2mm · 3 walls · 20% gyroid</li>
+          <li>Supports: wrist ledge overhang only</li>
+        </ul>
+        <div class="dl-btn-row">
+          <a href="pebble-top-case.stl" download class="btn-primary dl-btn">Download .stl file</a>
+          <a href="pebble-top-case.scad" download class="btn-outline dl-btn">Source (.scad)</a>
+        </div>
+      </div>
+
+      <div class="dl-card dl-primary">
+        <div class="dl-header">
+          <span class="dl-badge">Custom Design</span>
+          <span class="dl-format">STL</span>
+        </div>
+        <h3>Scroll Wheel Extender Cap</h3>
+        <p>The clip-on cap that enlarges the real scroll wheel for easy thumb, knuckle, or palm scrolling. Prints in minutes. Parametric source included to fine-tune the fit.</p>
+        <ul class="dl-specs">
+          <li>Fits the M350s scroll wheel (~11mm)</li>
+          <li>PLA / PETG · 0.12mm · no supports</li>
+          <li>Reversible — presses on, pulls off</li>
+        </ul>
+        <div class="dl-btn-row">
+          <a href="scroll-wheel-cap.stl" download class="btn-primary dl-btn">Download .stl file</a>
+          <a href="scroll-wheel-cap.scad" download class="btn-outline dl-btn">Source (.scad)</a>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-header">
+          <span class="dl-badge logitech-badge">Official Logitech</span>
+          <span class="dl-format">STL</span>
+        </div>
+        <h3>Pebble M350s — Mouse Base</h3>
+        <p>Original bottom shell from Logitech's official open-access repository. Use as reference geometry when designing custom modules.</p>
+        <a href="https://www.logitech.com/en-eu/discover/adaptive-pebble-3dprintables" target="_blank" rel="noopener" class="btn-outline dl-btn">View on Logitech.com ↗</a>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-header">
+          <span class="dl-badge logitech-badge">Official Logitech</span>
+          <span class="dl-format">STL</span>
+        </div>
+        <h3>Pebble M350s — Dongle Cover</h3>
+        <p>Official USB nano-receiver cover for the M350s — part of Logitech's open accessibility initiative for community customisation.</p>
+        <a href="https://www.logitech.com/en-eu/discover/adaptive-pebble-3dprintables" target="_blank" rel="noopener" class="btn-outline dl-btn">View on Logitech.com ↗</a>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-header">
+          <span class="dl-badge logitech-badge">Official Logitech</span>
+          <span class="dl-format">STL</span>
+        </div>
+        <h3>Pebble M350s — Feet Set</h3>
+        <p>Replacement glide feet for the M350s. Printable in flexible TPU for custom friction and glide performance.</p>
+        <a href="https://www.logitech.com/en-eu/discover/adaptive-pebble-3dprintables" target="_blank" rel="noopener" class="btn-outline dl-btn">View on Logitech.com ↗</a>
+      </div>
+
+    </div>
+
+    <div class="print-steps">
+      <h3>Quick print guide</h3>
+      <p class="print-intro">The STL files download ready to print — no OpenSCAD or CAD steps needed. Just slice and go.</p>
+      <ol class="step-list">
+        <li><strong>Top case —</strong> open <strong>pebble-top-case.stl</strong> in Bambu Studio or PrusaSlicer</li>
+        <li>Set <strong>PETG · 235°C nozzle · 85°C bed · 0.2mm layers · 3 walls · 20% gyroid</strong></li>
+        <li>Supports under the wrist-ledge overhang only — print <strong>top face down</strong></li>
+        <li>Press <strong>3× N52 magnets</strong> (6mm × 3mm) into the three underside pockets — no glue</li>
+        <li><strong>Wheel cap —</strong> print <strong>scroll-wheel-cap.stl</strong> (PLA/PETG, 0.12mm, no supports — a few minutes)</li>
+        <li>Pop the mouse's scroll wheel off its clip, slide the cap on, click the wheel back</li>
+        <li>Snap the top case onto the Pebble M350s base — magnets self-align. Done.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ SECTION 6 — QUESTIONNAIRE -->
+<section id="questionnaire" class="quest-section">
+  <div class="content-wrap">
+    <span class="section-tag">Research Feedback</span>
+    <h2 class="section-title">Share your experience</h2>
+    <p class="section-sub">If you printed and tested the module, please complete this short form. Responses shape the next design iteration.</p>
+
+    <!-- DEVELOPER NOTE:
+         To collect real responses via Google Forms:
+         1. Create a form at forms.google.com with these 8 questions
+         2. Get your form's "pre-fill" URL (Send → pre-fill link)
+         3. Replace GOOGLE_FORM_URL below with your formResponse URL
+         4. Map entry.XXXXX names to match your Google Form field IDs
+    -->
+
+    <div class="quest-wrap">
+      <div id="questThank" class="quest-thank hidden">
+        <div class="thank-icon">✓</div>
+        <h3>Thank you for your feedback!</h3>
+        <p>Your response has been recorded. This information will be used to improve the next version of the Accessible Scroll design.</p>
+        <button class="btn-outline" onclick="resetForm()">Submit another response</button>
+      </div>
+
+      <form id="questForm" class="quest-form" onsubmit="submitQuestionnaire(event)">
+
+        <div class="q-block">
+          <label class="q-label">1. Your name or identifier <span class="q-opt">(optional)</span></label>
+          <input type="text" id="q1" class="q-input" placeholder="e.g. Participant 1, or leave blank">
+        </div>
+
+        <div class="q-block">
+          <label class="q-label">2. Did you 3D print the Accessible Scroll module?</label>
+          <div class="q-radio-group">
+            <label class="q-radio"><input type="radio" name="q2" value="Yes — tested" required>Yes — printed and tested it</label>
+            <label class="q-radio"><input type="radio" name="q2" value="Yes — not tested">Yes — printed but not tested yet</label>
+            <label class="q-radio"><input type="radio" name="q2" value="Not yet">Not yet — plan to print</label>
+            <label class="q-radio"><input type="radio" name="q2" value="No">No</label>
+          </div>
+        </div>
+
+        <div class="q-block">
+          <label class="q-label">3. What material did you print in?</label>
+          <div class="q-radio-group">
+            <label class="q-radio"><input type="radio" name="q3" value="PETG">PETG</label>
+            <label class="q-radio"><input type="radio" name="q3" value="PLA+">PLA+</label>
+            <label class="q-radio"><input type="radio" name="q3" value="PLA">PLA</label>
+            <label class="q-radio"><input type="radio" name="q3" value="Not printed">Not printed yet</label>
+          </div>
+        </div>
+
+        <div class="q-block">
+          <label class="q-label">4. How well did the top case fit the Pebble M350s base?</label>
+          <div class="q-scale">
+            <span class="scale-lo">Poor fit</span>
+            <div class="q-scale-btns">
+              <button type="button" class="scale-btn" data-scale="q4" data-val="1">1</button>
+              <button type="button" class="scale-btn" data-scale="q4" data-val="2">2</button>
+              <button type="button" class="scale-btn" data-scale="q4" data-val="3">3</button>
+              <button type="button" class="scale-btn" data-scale="q4" data-val="4">4</button>
+              <button type="button" class="scale-btn" data-scale="q4" data-val="5">5</button>
+            </div>
+            <span class="scale-hi">Perfect fit</span>
+          </div>
+          <input type="hidden" id="q4" value="">
+        </div>
+
+        <div class="q-block">
+          <label class="q-label">5. How comfortable is the design to use?</label>
+          <div class="q-scale">
+            <span class="scale-lo">Uncomfortable</span>
+            <div class="q-scale-btns">
+              <button type="button" class="scale-btn" data-scale="q5" data-val="1">1</button>
+              <button type="button" class="scale-btn" data-scale="q5" data-val="2">2</button>
+              <button type="button" class="scale-btn" data-scale="q5" data-val="3">3</button>
+              <button type="button" class="scale-btn" data-scale="q5" data-val="4">4</button>
+              <button type="button" class="scale-btn" data-scale="q5" data-val="5">5</button>
+            </div>
+            <span class="scale-hi">Very comfortable</span>
+          </div>
+          <input type="hidden" id="q5" value="">
+        </div>
+
+        <div class="q-block">
+          <label class="q-label">6. Which features helped you most? <span class="q-opt">(select all that apply)</span></label>
+          <div class="q-check-group">
+            <label class="q-check"><input type="checkbox" name="q6" value="Palm dome">Palm dome</label>
+            <label class="q-check"><input type="checkbox" name="q6" value="Wheel extender cap">Wheel extender cap</label>
+            <label class="q-check"><input type="checkbox" name="q6" value="Wrist ledge">Wrist ledge</label>
+            <label class="q-check"><input type="checkbox" name="q6" value="Grip ribs">Grip ribs</label>
+            <label class="q-check"><input type="checkbox" name="q6" value="Tactile dots">Tactile dots</label>
+            <label class="q-check"><input type="checkbox" name="q6" value="Button extension">Button extension</label>
+            <label class="q-check"><input type="checkbox" name="q6" value="None">None were particularly helpful</label>
+          </div>
+        </div>
+
+        <div class="q-block">
+          <label class="q-label">7. What would you change or improve?</label>
+          <textarea id="q7" class="q-textarea" rows="3" placeholder="Any suggestions for the next version..."></textarea>
+        </div>
+
+        <div class="q-block">
+          <label class="q-label">8. Overall rating</label>
+          <div class="star-rating" id="starRating">
+            <button type="button" class="star" data-star="1">★</button>
+            <button type="button" class="star" data-star="2">★</button>
+            <button type="button" class="star" data-star="3">★</button>
+            <button type="button" class="star" data-star="4">★</button>
+            <button type="button" class="star" data-star="5">★</button>
+          </div>
+          <input type="hidden" id="q8" value="">
+        </div>
+
+        <button type="submit" class="btn-primary quest-submit">Submit feedback</button>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <strong>Accessible Scroll</strong> — Logitech Research Project 4<br>
+      <span class="footer-muted">Pebble M350s open-access platform · Community-driven accessibility</span>
+    </div>
+    <div class="footer-right">
+      <a href="https://www.logitech.com/en-eu/discover/adaptive-pebble-3dprintables" target="_blank" rel="noopener">Official Logitech 3D Printables ↗</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════ SCRIPTS -->
+<!-- Import map — REQUIRED. three's jsm loaders import from the bare
+     specifier 'three', which browsers cannot resolve without this. -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="app.js"></script>
+
+<script>
+// ── Replace with your real Google Form URL after creating the form ──
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/formResponse';
+
+// Scale buttons (fit + comfort)
+document.querySelectorAll('.scale-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const scale = this.dataset.scale;
+    document.querySelectorAll(`.scale-btn[data-scale="${scale}"]`).forEach(b => b.classList.remove('selected'));
+    this.classList.add('selected');
+    document.getElementById(scale).value = this.dataset.val;
+  });
+});
+
+// Star rating
+let starVal = 0;
+document.querySelectorAll('.star').forEach(star => {
+  star.addEventListener('click', function () {
+    starVal = +this.dataset.star;
+    document.getElementById('q8').value = starVal;
+    document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('active', i < starVal));
+  });
+  star.addEventListener('mouseenter', function () {
+    const n = +this.dataset.star;
+    document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('hover', i < n));
+  });
+  star.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.star').forEach(s => s.classList.remove('hover'));
+  });
+});
+
+function submitQuestionnaire(e) {
+  e.preventDefault();
+  const features = [...document.querySelectorAll('input[name="q6"]:checked')].map(c => c.value).join(', ');
+  const payload = {
+    name:     document.getElementById('q1').value || 'Anonymous',
+    printed:  document.querySelector('input[name="q2"]:checked')?.value || '',
+    material: document.querySelector('input[name="q3"]:checked')?.value || '',
+    fit:      document.getElementById('q4').value || 'No answer',
+    comfort:  document.getElementById('q5').value || 'No answer',
+    features: features || 'None selected',
+    improve:  document.getElementById('q7').value || '',
+    rating:   document.getElementById('q8').value || 'No rating'
+  };
+
+  // Show thank-you on this page immediately
+  document.getElementById('questForm').classList.add('hidden');
+  document.getElementById('questThank').classList.remove('hidden');
+
+  // Open Google Form in a new tab if URL is configured
+  if (!GOOGLE_FORM_URL.includes('YOUR_FORM_ID_HERE')) {
+    const params = new URLSearchParams();
+    // Add your real entry.XXXXXXX IDs below after creating the Google Form
+    params.set('entry.1', payload.name);
+    params.set('entry.2', payload.printed);
+    params.set('entry.3', payload.material);
+    params.set('entry.4', payload.fit);
+    params.set('entry.5', payload.comfort);
+    params.set('entry.6', payload.features);
+    params.set('entry.7', payload.improve);
+    params.set('entry.8', payload.rating);
+    window.open(GOOGLE_FORM_URL + '?' + params.toString(), '_blank');
+  }
+}
+
+function resetForm() {
+  document.getElementById('questForm').reset();
+  document.getElementById('questForm').classList.remove('hidden');
+  document.getElementById('questThank').classList.add('hidden');
+  document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.star').forEach(s => s.classList.remove('active', 'hover'));
+  ['q4', 'q5', 'q8'].forEach(id => { document.getElementById(id).value = ''; });
+  starVal = 0;
+}
+</script>
+
+</body>
+</html>

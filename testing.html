@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Accessible Scroll Assessment</title>
+<style>
+:root{--bg:#07111f;--panel:#102033;--line:#2b4b68;--accent:#38bdf8;--text:#eaf4ff;--muted:#9fb3c8;--ok:#34d399;--bad:#fb7185}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%;overflow:hidden}
+body{background:radial-gradient(circle at top,#15304d,#07111f 55%,#03080e);color:var(--text);font:15px Arial,sans-serif;display:flex;align-items:center;justify-content:center}
+.wrap{width:100%;max-width:1180px;display:grid;grid-template-columns:1fr 300px;gap:14px;padding:14px}
+.main,.side{background:rgba(16,32,51,.96);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 18px 45px #0008}
+.main{position:relative}
+canvas{display:block;width:100%;background:#0f172a}
+.side{padding:16px;overflow:auto}
+.overlay{position:absolute;inset:0;background:#050b13c9;backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto}
+.card{width:min(700px,96%);background:#102033;border:1px solid var(--line);border-radius:16px;padding:24px}
+.hidden{display:none!important}
+h1,h2,h3,p{margin-top:0}h1{font-size:26px}h2{font-size:20px}h3{font-size:15px;color:var(--accent)}
+.small{color:var(--muted);font-size:13px;line-height:1.45}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button{border:0;border-radius:11px;padding:11px 16px;font-weight:bold;cursor:pointer;font-size:14px}
+.primary{background:linear-gradient(135deg,#38bdf8,#22d3ee);color:#032030}
+.secondary{background:#1a2c43;color:var(--text);border:1px solid #355875}
+.danger{background:#4a1f2b;color:#ffdce2;border:1px solid #753347}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#102c46;border:1px solid #255477;color:#c7f0ff;font-size:12px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.metric{background:#14263b;border:1px solid #294964;border-radius:11px;padding:10px}
+.metric b{display:block;font-size:18px}.metric span{font-size:12px;color:var(--muted)}
+.progress{height:8px;background:#0c1827;border:1px solid #263f59;border-radius:999px;overflow:hidden;margin:10px 0 14px}
+.progress div{height:100%;width:0;background:linear-gradient(90deg,#38bdf8,#34d399);transition:width .3s}
+.range{margin:16px 0}.range input{width:100%}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.option{background:#14263b;border:1px solid #294964;border-radius:9px;padding:10px;cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:7px;border-bottom:1px solid #294964;text-align:left}
+th{color:var(--accent)}
+.note{margin-top:12px;background:#2c2515;border-left:3px solid #f59e0b;padding:10px;border-radius:8px;color:#f7d99e;font-size:12px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}.side{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="main">
+  <canvas id="c" width="820" height="480"></canvas>
+  <div id="overlay" class="overlay">
+
+    <div id="welcome" class="card">
+      <span class="badge">Accessible Scroll — Proof of Concept Assessment</span>
+      <h1>Scroll Accessibility Challenge</h1>
+      <p>This activity measures scroll accuracy, precise control, and performance during repeated scrolling — to help classify what kind of scroll support you may need.</p>
+      <p class="small">Use only the mouse scroll wheel. The process includes calibration, a short practice, an adaptive game, and a self-report.</p>
+      <div class="btns"><button class="primary" onclick="show('instructions')">Start activity</button></div>
+    </div>
+
+    <div id="instructions" class="card hidden">
+      <h2>How it works</h2>
+      <p>Scroll <strong>up</strong> to move the Logitech mouse icon upward.</p>
+      <p>Scroll <strong>down</strong> to move it downward.</p>
+      <p>Guide the mouse through the gap in each wall.</p>
+      <p class="small">The activity takes about one minute. The practice round is not scored.</p>
+      <div class="btns">
+        <button class="primary" onclick="show('calibration')">Continue</button>
+        <button class="secondary" onclick="skipToSurvey()">Skip activity</button>
+      </div>
+    </div>
+
+    <div id="calibration" class="card hidden">
+      <h2>Calibration</h2>
+      <p>Use the scroll wheel to move the mouse icon to the highlighted target on screen.</p>
+      <p class="small">No data is recorded during calibration.</p>
+      <div class="btns">
+        <button class="primary" onclick="startCalibration()">Begin calibration</button>
+        <button class="danger" onclick="skipToSurvey()">I cannot use the scroll wheel</button>
+      </div>
+    </div>
+
+    <div id="practice" class="card hidden">
+      <h2>Practice round</h2>
+      <p>Complete three walls with large openings. No score is recorded here.</p>
+      <div class="btns"><button class="primary" onclick="startPractice()">Start practice</button></div>
+    </div>
+
+    <div id="ready" class="card hidden">
+      <h2>Adaptive game — ready</h2>
+      <p>The next <strong>20 obstacles</strong> will be measured.</p>
+      <p class="small">After two consecutive successes the opening narrows. After one miss it widens. This adapts to your natural scroll range.</p>
+      <div class="btns">
+        <button class="primary" onclick="startGame()">Start game</button>
+        <button class="danger" onclick="skipToSurvey()">I cannot complete this</button>
+      </div>
+    </div>
+
+    <div id="survey" class="card hidden">
+      <h2>Quick self-report</h2>
+      <div class="range">
+        <label>How tired does your hand or finger feel? <b id="fv">1</b>/9</label>
+        <input id="fatigue" type="range" min="1" max="9" value="1" oninput="fv.textContent=this.value">
+      </div>
+      <div class="range">
+        <label>How much pain or discomfort did you feel? <b id="pv">1</b>/9</label>
+        <input id="pain" type="range" min="1" max="9" value="1" oninput="pv.textContent=this.value">
+      </div>
+      <p>Where did you feel discomfort?</p>
+      <div class="options">
+        <label class="option"><input type="radio" name="loc" value="None" checked> None</label>
+        <label class="option"><input type="radio" name="loc" value="Index finger"> Index finger</label>
+        <label class="option"><input type="radio" name="loc" value="Middle finger"> Middle finger</label>
+        <label class="option"><input type="radio" name="loc" value="Thumb"> Thumb</label>
+        <label class="option"><input type="radio" name="loc" value="Wrist"> Wrist</label>
+        <label class="option"><input type="radio" name="loc" value="Forearm"> Forearm</label>
+      </div>
+      <div class="btns"><button class="primary" onclick="showResults()">See my profile</button></div>
+    </div>
+
+    <div id="results" class="card hidden">
+      <h2>Your scroll profile</h2>
+      <div id="resultBody"></div>
+      <div class="note">All classifications and numeric thresholds are illustrative only. Real thresholds require pilot testing with reference population data.</div>
+      <div class="btns"><button class="primary" onclick="location.reload()">Restart</button></div>
+    </div>
+
+  </div>
+</section>
+
+<aside class="side">
+  <span id="phase" class="badge">Phase: Welcome</span>
+  <h2>Live metrics</h2>
+  <div class="progress"><div id="bar"></div></div>
+  <div class="grid">
+    <div class="metric"><b id="trial">0/20</b><span>Obstacles</span></div>
+    <div class="metric"><b id="gap">120 px</b><span>Gap width</span></div>
+    <div class="metric"><b id="succ">0%</b><span>Success rate</span></div>
+    <div class="metric"><b id="err">0 px</b><span>Centre error</span></div>
+    <div class="metric"><b id="dir">0.00</b><span>Dir changes/obs</span></div>
+    <div class="metric"><b id="eff">1.00</b><span>Path efficiency</span></div>
+  </div>
+  <h3 style="margin-top:18px">Problems assessed</h3>
+  <p class="small">
+    <strong>C1</strong> — Accuracy and stopping control<br>
+    <strong>C2</strong> — Short precise scrolling<br>
+    <strong>C3</strong> — Scroll performance over time
+  </p>
+  <h3>Note</h3>
+  <p class="small">The player icon is a stylised Logitech Pebble mouse — not an official Logitech graphic asset.</p>
+</aside>
+</div>
+
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d');
+const $=id=>document.getElementById(id);
+const cards=['welcome','instructions','calibration','practice','ready','survey','results'];
+function show(id){cards.forEach(k=>$(k).classList.add('hidden'));$(id).classList.remove('hidden');$('overlay').classList.remove('hidden')}
+function hide(){$('overlay').classList.add('hidden')}
+function phase(t){$('phase').textContent='Phase: '+t}
+
+let state='welcome',shipY=240,targetY=240,lastY=240,lastSign=0,dirChanges=0,actualPath=0,idealPath=0;
+let obs=[],stars=[],frame=0,practiceN=0,measured=0,success=0,errors=[],gapW=120,streak=0;
+let reversals=[],lastDiff=0,lastCenter=240,obIndex=0;
+const total=20,minGap=50,maxGap=160,step=10,speed=3.4;
+
+for(let i=0;i<70;i++) stars.push({x:Math.random()*820,y:Math.random()*480,s:Math.random()*2+0.5});
+
+window.addEventListener('wheel',e=>{
+  e.preventDefault();
+  if(!['calibration','practice','game'].includes(state)) return;
+  let s=Math.sign(e.deltaY);
+  if(lastSign&&s&&s!==lastSign) dirChanges++;
+  if(s) lastSign=s;
+  targetY=Math.max(28,Math.min(452,targetY+e.deltaY*.32));
+},{passive:false});
+
+window.addEventListener('keydown',e=>{
+  if(!['calibration','practice','game'].includes(state)) return;
+  if(e.key==='ArrowUp') targetY=Math.max(28,targetY-24);
+  if(e.key==='ArrowDown') targetY=Math.min(452,targetY+24);
+});
+
+function drawBg(){
+  x.fillStyle='#0f172a';x.fillRect(0,0,820,480);
+  x.fillStyle='#fff';
+  stars.forEach(s=>{s.x-=.35;if(s.x<0)s.x=820;x.fillRect(s.x,s.y,s.s,s.s)});
+}
+
+function drawMouse(){
+  x.save();x.translate(125,shipY);
+  x.fillStyle='#dbe7f4';x.strokeStyle='#7fa1bf';x.lineWidth=2;
+  x.beginPath();x.roundRect(-36,-21,72,42,18);x.fill();x.stroke();
+  x.fillStyle='#4b5563';x.fillRect(-4,-15,8,12);
+  x.strokeStyle='#9eb4ca';x.beginPath();x.moveTo(0,-18);x.lineTo(0,-3);x.stroke();
+  x.fillStyle='#0f172a';x.font='bold 9px Arial';x.textAlign='center';x.fillText('logitech',0,12);
+  x.strokeStyle='#38bdf8';x.lineWidth=2;
+  x.beginPath();x.roundRect(-39,-24,78,48,20);x.stroke();
+  x.restore();
+}
+
+function drawWall(o){
+  x.fillStyle='#1e4666';x.strokeStyle='#38bdf8';x.lineWidth=2;
+  x.fillRect(o.x,0,40,o.top);x.strokeRect(o.x,0,40,o.top);
+  let b=o.top+o.gap;
+  x.fillRect(o.x,b,40,480-b);x.strokeRect(o.x,b,40,480-b);
+  x.strokeStyle='#34d39988';x.setLineDash([5,5]);
+  x.beginPath();x.moveTo(o.x,o.center);x.lineTo(o.x+40,o.center);x.stroke();
+  x.setLineDash([]);
+}
+
+function spawn(practice=false){
+  let delta=([35,55,75])[Math.floor(Math.random()*3)]*(Math.random()<.5?-1:1)*(obIndex%2===0?1:2);
+  let g=practice?185:gapW;
+  let center=Math.max(g/2+30,Math.min(480-g/2-30,lastCenter+delta));
+  idealPath+=Math.abs(center-lastCenter);lastCenter=center;
+  obs.push({x:850,top:center-g/2,center,gap:g,count:false,practice});
+  obIndex++;
+}
+
+function adjust(ok){
+  let d=0;
+  if(ok){streak++;if(streak>=2){d=-1;streak=0}}else{streak=0;d=1}
+  if(!d)return;
+  if(lastDiff&&d!==lastDiff) reversals.push(gapW);
+  lastDiff=d;gapW=Math.max(minGap,Math.min(maxGap,gapW+d*step));
+}
+
+function updateHUD(){
+  let sr=measured?success/measured*100:0;
+  let ae=errors.length?errors.reduce((a,b)=>a+b,0)/errors.length:0;
+  let de=measured?dirChanges/measured:0;
+  let pe=actualPath?Math.min(1,idealPath/actualPath):1;
+  $('trial').textContent=`${measured}/${total}`;
+  $('gap').textContent=gapW+' px';
+  $('succ').textContent=sr.toFixed(0)+'%';
+  $('err').textContent=ae.toFixed(0)+' px';
+  $('dir').textContent=de.toFixed(2);
+  $('eff').textContent=pe.toFixed(2);
+  $('bar').style.width=(measured/total*100)+'%';
+}
+
+function process(o){
+  o.x-=speed;
+  if(o.x<=161&&!o.count){
+    o.count=true;
+    let ok=shipY-21>=o.top&&shipY+21<=o.top+o.gap;
+    if(o.practice){practiceN++;if(practiceN>=3){state='ready';phase('Ready');show('ready')}return}
+    measured++;if(ok)success++;errors.push(Math.abs(shipY-o.center));adjust(ok);updateHUD();
+    if(measured>=total){state='survey';phase('Self-report');show('survey')}
+  }
+}
+
+function loop(){
+  drawBg();
+  shipY+=(targetY-shipY)*.18;
+  actualPath+=Math.abs(shipY-lastY);lastY=shipY;
+  drawMouse();
+  if(state==='calibration'){
+    x.strokeStyle='#34d399';x.lineWidth=4;x.beginPath();x.arc(700,110,30,0,Math.PI*2);x.stroke();
+    x.fillStyle='#34d399';x.font='bold 13px Arial';x.textAlign='center';x.fillText('TARGET',700,115);
+    if(Math.abs(shipY-110)<18){state='practiceReady';phase('Practice');show('practice')}
+  }
+  if(state==='practice'||state==='game'){
+    frame++;
+    if(frame%145===0&&obs.length<3) spawn(state==='practice');
+    for(let i=obs.length-1;i>=0;i--){process(obs[i]);drawWall(obs[i]);if(obs[i].x+40<0)obs.splice(i,1)}
+    x.fillStyle='#d7ecff';x.font='bold 15px Arial';x.textAlign='left';
+    x.fillText(state==='practice'?`Practice: ${practiceN}/3`:`Measured: ${measured}/${total}`,18,26);
+  }
+  requestAnimationFrame(loop);
+}
+
+function startCalibration(){hide();state='calibration';phase('Calibration');shipY=targetY=240;actualPath=idealPath=0}
+function startPractice(){hide();state='practice';phase('Practice');obs=[];practiceN=0;frame=0;obIndex=0;lastCenter=240}
+function startGame(){
+  hide();state='game';phase('Adaptive game');obs=[];frame=0;
+  measured=success=0;errors=[];gapW=120;streak=0;reversals=[];lastDiff=0;
+  dirChanges=0;lastSign=0;actualPath=idealPath=0;obIndex=0;lastCenter=240;updateHUD();
+}
+function skipToSurvey(){state='survey';phase('Self-report');show('survey')}
+
+function showResults(){
+  let sr=measured?success/measured*100:0;
+  let ae=errors.length?errors.reduce((a,b)=>a+b,0)/errors.length:0;
+  let de=measured?dirChanges/measured:0;
+  let pe=actualPath?Math.min(1,idealPath/actualPath):1;
+  let rv=reversals.slice(-6);
+  let thr=rv.length?rv.reduce((a,b)=>a+b,0)/rv.length:gapW;
+  let f=+$('fatigue').value,p=+$('pain').value;
+  let loc=document.querySelector('input[name=loc]:checked').value;
+  let acc=sr>=85&&ae<25?'High':sr>=65?'Medium':'Low';
+  let prec=thr<=80?'High':thr<=110?'Medium':'Low';
+  let corr=de<.8?'Low':de<1.4?'Medium':'High';
+  let eff=pe>=.85?'High':pe>=.65?'Medium':'Low';
+  let need=acc==='Low'||prec==='Low'?'Improve scroll accuracy and precise control':
+            f>=7?'Reduce repeated-scroll effort':
+            corr==='High'?'Reduce corrective scrolling':'No clear support need identified';
+  $('resultBody').innerHTML=`
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Success rate</td><td>${sr.toFixed(1)}%</td></tr>
+      <tr><td>Average centre error</td><td>${ae.toFixed(1)} px</td></tr>
+      <tr><td>Estimated controllable gap</td><td>${thr.toFixed(1)} px</td></tr>
+      <tr><td>Direction-change rate</td><td>${de.toFixed(2)} / obstacle</td></tr>
+      <tr><td>Path efficiency</td><td>${pe.toFixed(2)}</td></tr>
+      <tr><td>Fatigue</td><td>${f}/9</td></tr>
+      <tr><td>Pain / discomfort</td><td>${p}/9 — ${loc}</td></tr>
+    </table>
+    <h3 style="margin-top:16px">Digital User Profile</h3>
+    <table>
+      <tr><td>Scroll accuracy</td><td><b>${acc}</b></td></tr>
+      <tr><td>Short precise scrolling</td><td><b>${prec}</b></td></tr>
+      <tr><td>Correction tendency</td><td><b>${corr}</b></td></tr>
+      <tr><td>Movement efficiency</td><td><b>${eff}</b></td></tr>
+    </table>
+    <h3 style="margin-top:16px">Primary need identified</h3>
+    <p><b>${need}</b></p>
+    <p class="small">Possible directions: larger scroll surface, adjusted sensitivity, tactile steps, or step-based scrolling.</p>`;
+  show('results');phase('Results');
+}
+
+show('welcome');loop();
+</script>
+</body>
+</html>
